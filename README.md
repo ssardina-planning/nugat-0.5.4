@@ -38,6 +38,7 @@ NuGaT you should first obtain and build NuSMV 2.5.4.
   
 3. Compile NuGAT using the **source** dir of NuSMV 2.5.0 (not its installation):
 
+        $ autoconf  # create the configure script
         $ ./configure --prefix=/opt/NuGAT-0.5.4/ --with-nusmv-dir=/home/ssardina/src/NuSMV/NuSMV-2.5.4/nusmv/
         $ make
         $ sudo make install 
