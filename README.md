@@ -33,74 +33,23 @@ NuGaT you should first obtain and build NuSMV 2.5.4.
 
         make[2]: *** No rule to make target '/home/ssardina/src/NuSMV/NuSMV-2.5.4/nusmv/librbcdag.la', needed by 'NuGaT'.  Stop.
 
-    
-    
-    
-2. Compile NuGAT using the **source** dir of NuSMV 2.5.0 (not its installation):
+    To avoid this, when you installed nusmv, it created an extra library librbcdag  in <nusmv-build-dir>/lib/ 
+    Please copy files that have "rbc" in their name from <nusmv-build-dir>/lib to nusmv source folder.
+  
+3. Compile NuGAT using the **source** dir of NuSMV 2.5.0 (not its installation):
 
-        ./configure --prefix=/opt/NuGAT-0.5.4/ --with-nusmv-dir=/home/ssardina/src/NuSMV/NuSMV-2.5.4/nusmv/
-        make
-        sudo make install 
-
-        ./configure --prefix=/opt/NuGAT-0.5.4/ 
-            --with-nusmv-dir=/home/ssardina/src/NuSMV-2.5.4/nusmv/ CC=/usr/bin/gcc-4.7
-        make
-        sudo make install 
-
-  See we use the source tree used to compile NuSMV and not the thing that was
-  deployed in the system when make all was done for nusmv.
-
-  (For some reason, NuGat does not compile against newer versions of NuSMV.)
-
-
-
-
-We refer to INSTALL for detail instructions for 0.5.4. What follows are
-the original instructions for 0.5.0:
-
-Below we assume that your have successfully compiled NuSMV 2.5. We
-further denote the full path of the "nusmv" directory of that
-installation by $(nusmv_dir).
-
-Basic building steps:
-
-1. Download NuGaT into a convenient directory, e.g., /tmp.
-
-2. Move to the directory where you would like to build NuGaT and
-   unpack the distributions:
-
-	% cd /home/nusmv		    # for example
-	% tar -xvjf /tmp/NuGaT-0.5.0.tar.bz2
-
-   The configure script of NuGaT tries to locate NuSMV 2.5 and NuGaT
-   in the same subdirectory. For this reason we use "nusmv" as the
-   name of this subdirectory because this follows the example in the
-   NuSMV README.
-
-3. Move into the NuGaT directory and run configure, which will
-   determine some system-specific parameters and create the
-   Makefile. Use the --with-nusmv-dir option to indicate the location
-   of NuSMV 2.5.
-
-	% cd NuGaT-0.5.0                    # let this be $(nugat_dir)
-	% ./configure --with-nusmv-dir=$(nusmv_dir)
-   
-   Note: Not all checks will return "yes". This is normal and should
-   not affect compilation. However, do be concerned with any warnings
-   "configure" produces.
-
-   Note: Occasionally, configure will make a bad guess or will choose
-   a default you do not want. In this case, simply edit the Makefile
-   at this point.
-
-4. Build NuGaT by running GNU's make utility:
-
-	% make
+        $ ./configure --prefix=/opt/NuGAT-0.5.4/ --with-nusmv-dir=/home/ssardina/src/NuSMV/NuSMV-2.5.4/nusmv/
+        $ make
+        $ sudo make install 
 
    This builds an executable "NuGaT" in the current directory.
 
-5. Checking LTLGAME properties currently requires a slightly modified
-   version of the LTL to B\"uchi translator available in Lily.
+
+
+#### LTL GAME
+
+
+Checking LTLGAME properties currently requires a slightly modified version of the LTL to B\"uchi translator available in Lily.
 
    1. Download lily-2008-06-19.tar.gz from the following URL:
       http://www.iaik.tugraz.at/content/research/design_verification/lily/lily-2008-06-19.tar.gz
@@ -127,10 +76,7 @@ Basic building steps:
       game_sf07_gba_wring_binary to the full path of lily.pl (see the
       NuSMV documentation for details).
 
-
-========
-4. Usage
-========
+### Usage
 
 This section contains some hints on how to use NuGaT.
 
