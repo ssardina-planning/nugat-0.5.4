@@ -171,3 +171,4 @@ src/parser/
 config.h
 libtool
 configure
+.idea
