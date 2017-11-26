@@ -166,3 +166,8 @@ config.log
 /NuGaT
 build
 cmake-build-debug
+configure
+src/parser/
+config.h
+libtool
+configure
