@@ -3,7 +3,7 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.57)
 
-AC_INIT(NuGaT, 0.5.0, nugat@list.fbk.eu)
+AC_INIT(NuGaT, 0.5.4, nugat@list.fbk.eu)
 
 # local configuration
 nusmv_pkg=nusmv-2.pc
