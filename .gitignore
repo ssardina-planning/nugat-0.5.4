@@ -164,3 +164,5 @@ config.status
 config.log
 .idea/
 /NuGaT
+build
+cmake-build-debug
