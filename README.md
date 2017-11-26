@@ -1,43 +1,18 @@
-----------------------------------------------------------------------
-NuGAT is a game solver on top of NuSMV model checker
-
-This is version 0.5.4 of NuGaT.
-
-by Nitin Yadav (<kyadav.nitin@gmail.com>) and 
-Sebastian Sardina (ssardina@gmail.com) @ 2015
-
-
-VERSION TRACKING:
-
-0.5.4 (June 2015): ported NuGAT to work with NuSMV 2.5.4 (see MIGRATION-0.5.4)
-0.5.0: from from http://es.fbk.eu/technologies/nugat-game-solver
-       (only works with NuSMV 2.5.0; does not compile with newer versions)
-----------------------------------------------------------------------
+## NuGAT Game Solver (for NuSMV 2.5.4)
 
 NuGaT is a game solver built on top of the NuSMV model checker.
 
 This is the release based on the original 0.5.0 version so as to make
 it compatible with the latest NuSMV 2.5.4 which introduced many changes.
 
-We make no guarantees about commands, features, or interfaces being the 
-same or even available in potential future versions.
+See `doc/MIGRATION-0.5.4` for summary of changes done. **Port done on June 2015.**
+
+The original NuGAT 0.5.0 can only be used with NuSMV 2.5.0.
+
+**NOTE:** Please refer to README-0.5.0 for original README file.
 
 
-===========
-0. CONTENTS
-===========
- 1. Copyright
- 2. Useful links
- 3. Building NuGaT
- 4. Usage
- 5. Restrictions
- 6. Known issues
- 7. Acknowledgements
-
-
-============
-1. COPYRIGHT
-============
+### COPYRIGHT
 
 NuGaT version is licensed under the GNU Lesser General Public
 License (LGPL in short) as published by the Free Software Foundation;
@@ -47,46 +22,38 @@ version. File LGPL-2.1 contains a copy of the License.
 For license information on Lily see its documentation.
 
 
-===============
-2. USEFUL LINKS
-===============
+### BUILD INSTRUCTIONS
 
-The NuGaT home page:
+1. NuGaT uses NuSMV 2.5.4 as its backend. Hence, in order to build and use
+NuGaT you should first obtain and build NuSMV 2.5.4. 
 
-	http://es.fbk.eu/tools/nugat/
+    Please refer to doc/INSTALL-NuSMV-2.5.4.md for some instructions on this.
 
-The NuSMV home page:
+2. If one compiles right away, you would get this error:
 
-	http://nusmv.fbk.eu/
+        make[2]: *** No rule to make target '/home/ssardina/src/NuSMV/NuSMV-2.5.4/nusmv/librbcdag.la', needed by 'NuGaT'.  Stop.
 
-The NuSMV mailing list page:
+    
+    
+    
+2. Compile NuGAT using the **source** dir of NuSMV 2.5.0 (not its installation):
 
-	http://nusmv.fbk.eu/mail.html
+        ./configure --prefix=/opt/NuGAT-0.5.4/ --with-nusmv-dir=/home/ssardina/src/NuSMV/NuSMV-2.5.4/nusmv/
+        make
+        sudo make install 
 
-The most recent versions of NuSMV:
+        ./configure --prefix=/opt/NuGAT-0.5.4/ 
+            --with-nusmv-dir=/home/ssardina/src/NuSMV-2.5.4/nusmv/ CC=/usr/bin/gcc-4.7
+        make
+        sudo make install 
 
-	http://nusmv.fbk.eu/download.html
+  See we use the source tree used to compile NuSMV and not the thing that was
+  deployed in the system when make all was done for nusmv.
 
-The RATSY home page:
-
-        http://rat.fbk.eu/ratsy/
-
-The Lily home page:
-
-        http://www.iaik.tugraz.at/content/research/design_verification/lily/
-
-The GNU Lesser General Public License home page:
-
-	http://www.gnu.org/licenses/lgpl.html
+  (For some reason, NuGat does not compile against newer versions of NuSMV.)
 
 
-=================
-3. BUILDING NUGAT
-=================
 
-NuGaT uses NuSMV 2.5 as its backend. Hence, in order to build and use
-NuGaT you should first obtain and build NuSMV 2.5. For this we refer
-to the NuSMV 2.5 documentation.
 
 We refer to INSTALL for detail instructions for 0.5.4. What follows are
 the original instructions for 0.5.0:
@@ -217,21 +184,14 @@ or interactively:
         %
 
 
-===============
-5. Restrictions
-===============
+## KNOWN ISSUES
 
 Currently, not all features of the NuSMV language (see the NuSMV 2.5
 documentation) are supported in games. Notable examples of unsupported
 constructs are assignments (ASSIGN), invariants (INVAR), and
 processes.
 
-
-===============
-6. Known issues
-===============
-
-There is an unresolved issued in the BDD encoder of NuSMV 2.5. If you
+Also, there is an unresolved issued in the BDD encoder of NuSMV 2.5. If you
 see assertion violations of the following kind
 
 NuGaT: bdd/BddEnc.c:4025: bdd_enc_shuffle_variables_order: Assertion `res == 1' failed.
@@ -249,14 +209,12 @@ then NuGaT:
         % make
 
 
-===================
-7. Acknowledgements
-===================
+### CONTACT
 
-The support of the Provincia Autonoma di Trento (project EMTELOS) and
-the EU (projects COCONUT and PROSYD) is gratefully acknowledged.
+Migration from NuSMV 2.5.0 to 2.5.4 for NuGAT has been done by:
+
+* Nitin Yadav (<kyadav.nitin@gmail.com>)
+* Sebastian Sardina (ssardina@gmail.com) 
 
 
-===
-EOF
-===
+### EOF
