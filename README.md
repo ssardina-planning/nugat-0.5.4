@@ -19,15 +19,15 @@ with such version can be found at [NuGAT 0.6.0 repo](https://bitbucket.org/nugat
 
 ## INSTALLATION INSTRUCTIONS ##
 
-1. Make sure you have compiled and installed NuSMV 2.6.0 and then set
+1. Make sure you have compiled and installed NuSMV 2.5.4 and then set
 the following environmet variables:
 
-        export NUSMV_BUILD_DIR=/opt/NuSMV-2.6.0/
-        export NUSMV_SOURCE_DIR=~/src/NuSMV/NuSMV-2.6.0/NuSMV/
+        export NUSMV_BUILD_DIR=/opt/NuSMV-2.5.4/
+        export NUSMV_SOURCE_DIR=~/src/NuSMV/NuSMV-2.5.4/NuSMV/
         
     Remember you can install NuSMV in your own directory:
 
-        cmake .. -DCMAKE_INSTALL_PREFIX=~/opt/nusmv-2.6.0/
+        ./configure --prefix=/home/ssardina/opt/nusmv-2.5.4
         make
         make install
 
@@ -48,39 +48,30 @@ Note:
 - icu-config simplifies the task of building and linking against ICU as compared to manually configuring user makefiles or equivalent. Because icu-config is an executable script, it also solves the problem of locating the ICU libraries and headers, by allowing the system PATH to locate it.
 
 
-3. BUILD WITH CMAKE (newer):
+3. BUILD and INSTALL with make:
 
-        mkdir build
-        cd build
-        rm -rf *
-        cmake ..        # this generate the Makefiles
-        cmake --build . # this generate NuGAT executable
-
+         ./configure --prefix=/home/ssardina/opt/nugat-0.5.4 --with-nusmv-dir=/home/ssardina/src/NuSMV/NuSMV-2.5.4/nusmv/
+        make
+        make install
+        
     This should finish a ./NuGAT executable:
         
-        [ssardina@Thinkpad-X1 build]$ ./NuGAT 
-        *** This is NuGaT 0.6.0 (compiled on Sun Nov 26 14:34:01 2017)
-        *** Enabled addons are: game 
-        *** For more information on NuGaT see <http://es.fbk.eu/tools/nugat>
-        *** or email to <nugat-users@list.fbk.eu>.
-        *** Please report bugs to <Please report bugs to <nusmv-users@fbk.eu>>.
-        *** Copyright (c) 2010, Fondazione Bruno Kessler
-        
-        *** This version of NuGAT-0.6.0 is linked to NuSMV 2.6.0.
-        *** For more information on NuSMV see <http://nusmv.fbk.eu>
-        *** or email to <nusmv-users@list.fbk.eu>.
-        *** Copyright (C) 2010-2014, Fondazione Bruno Kessler
-        
-        *** This version of NuGAT-0.6.0 is linked to the CUDD library version 2.4.1
-        *** Copyright (c) 1995-2004, Regents of the University of Colorado
-        
-        *** This version of NuGAT-0.6.0 is linked to the MiniSat SAT solver. 
-        *** See http://minisat.se/MiniSat.html
-        *** Copyright (c) 2003-2006, Niklas Een, Niklas Sorensson
-        *** Copyright (c) 2007-2010, Niklas Sorensson
-        
-        
-4. Install binary NuGAT wherever you would like to be in your system.
+          [ssardina@Thinkpad-X1 nugat-0.5.4.git]$ ./NuGaT 
+          *** This is NuGaT 0.5.4 (compiled on Thu Nov 30 11:52:20 UTC 2017)
+          *** Enabled addons are: game 
+          *** For more information on NuGaT see <http://es.fbk.eu/tools/nugat>
+          *** or email to <nugat-users@list.fbk.eu>.
+          *** Please report bugs to <nugat@list.fbk.eu>.
+          *** Copyright (c) 2010, Fondazione Bruno Kessler
+          
+          *** This version of NuGAT-0.5.4 is linked to NuSMV 2.5.4.
+          *** For more information on NuSMV see <http://nusmv.fbk.eu>
+          *** or email to <nusmv-users@list.fbk.eu>.
+          *** Copyright (C) 2010 by Fondazione Bruno Kessler
+          
+          *** This version of NuGAT-0.5.4 is linked to the CUDD library version 2.4.1
+          *** Copyright (c) 1995-2004, Regents of the University of Colorado
+  
 
 
 
@@ -97,7 +88,7 @@ is used in the NuGAT shell. While in game mode the NuGAT shell command
 help provides an overview of the available commands. Calling a NuGAT
 shell command with argument "-h" prints a brief usage message.
 
-NuGAT 0.6.0 uses the same language as NuGAT 0.5.0. See examples in examples/
+NuGAT 0.5.4 uses the same language as NuGAT 0.5.0. See examples in examples/
 
 The port of the original NuGAT example (gets same results):
     
@@ -165,8 +156,6 @@ A file that has useful information on what NuGAT can do is:
 
 src/addons/game/gameCmd.c
 
-
-
 One can run NuGAT directly from the command line or via a script file. In both
 cases, the most improtant option seems to be "--dynamic", which speeds up NuGAT
 by a lot.
@@ -210,7 +199,7 @@ the problem (if any).
 
 ##### EXAMPLES
 
-I provide three file examples on how to use NuGat for planning.
+Three file examples on how to use NuGAT for planning:
 
 - flip-coin-NUGAT-v01.smv: 
 		flip is deterministic; strong planning has solution
@@ -239,8 +228,7 @@ For license information on Lily see its documentation.
 
 ## CONTACT ##
 
-This port of NuGAT compatible with NuSMV 2.6.0 was done by:  
+This port of NuGAT compatible with NuSMV 2.5.4 was done by:  
 
 * Sebastian Sardina - ssardina@gmail.com 
-* Lorenzo Dibenedetto - lorenzodibenedetto90@gmail.com
 * Nitin Yadav - nitin.yadav@rmit.edu.au
