@@ -6,9 +6,8 @@ Develped by Nitin Yadav and Sebastian Sardina (2015).
 
 ## OVERVIEW ##
 
-NuGAT (https://es.fbk.eu/technologies/NuGAT-game-solver) was developed at FBK-ES
-group. The last version was 0.5.0 which worked with NuSMV 2.5.0, but not newer
-versions. 
+NuGAT (https://es.fbk.eu/technologies/NuGAT-game-solver) was developed at [FBK-ES](https://es.fbk.eu/)
+group. The last version was 0.5.0 which worked with NuSMV 2.5.0 (but not with newer versions). 
 
 NuSMV had an important upgrade to [version 2.5.4]([NuSMV 2.6.0 release news](http://nusmv.fbk.eu/announce-NuSMV-2.5.4.txt)). In June 2015, NuGAT 0.5.0 was ported 0.5.4 to work with NuSMV 2.5.4 by 
 Nitin Yadav and Sebastian Sardina. This is such version.
