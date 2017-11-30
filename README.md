@@ -229,7 +229,7 @@ For license information on Lily see its documentation.
 
 This port of NuGAT compatible with NuSMV 2.5.4 was done by:  
 
-* Sebastian Sardina <ssardina@gmail.com> 
+* [Sebastian Sardina](https://sites.google.com/site/ssardina/) <ssardina@gmail.com> 
 * Nitin Yadav <kyadav.nitin@gmail.com>
 
 For the original authors of NuGAT refer to the [AUTHORS](https://bitbucket.org/nugaton/nugat-0.5.4/src/284c8be1dcad8695484157562e35b4fb3161a73f/AUTHORS?at=master&fileviewer=file-view-default) file in the distribution.
