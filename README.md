@@ -30,6 +30,7 @@ the following environmet variables:
         make
         make install
 
+    See extras/NuSMV-2.5.5/ for NuSMV package and install instructions for this version.
 
 2. Some of the packages needed:
 
