@@ -1,167 +1,254 @@
-## NuGAT Game Solver (for NuSMV 2.5.4)
+# NuGAT Game Solver (for NuSMV 2.5.4) #
 
-NuGaT is a game solver built on top of the NuSMV model checker.
+This is the NuGAT game solver compatible with new NuSMV 2.5.4.
 
-This is the release based on the original 0.5.0 version so as to make
-it compatible with the latest NuSMV 2.5.4 which introduced many changes.
+Develped by Nitin Yadav and Sebastian Sardina (2015).
 
-See `doc/MIGRATION-0.5.4` for summary of changes done. **Port done on June 2015.**
+## OVERVIEW ##
 
-The original NuGAT 0.5.0 can only be used with NuSMV 2.5.0.
+NuGAT (https://es.fbk.eu/technologies/NuGAT-game-solver) was developed at FBK-ES
+group. The last version was 0.5.0 which worked with NuSMV 2.5.0, but not newer
+versions. 
 
-**NOTE:** Please refer to README-0.5.0 for original README file.
+NuSMV had an important upgrade to [version 2.5.4]([NuSMV 2.6.0 release news](http://nusmv.fbk.eu/announce-NuSMV-2.5.4.txt)). In June 2015, NuGAT 0.5.0 was ported 0.5.4 to work with NuSMV 2.5.4 by 
+Nitin Yadav and Sebastian Sardina. This is such version.
 
+**Obs:** NuSMV later had a major upgrade to [version 2.6.0]([NuSMV 2.6.0 release news](http://nusmv.fbk.eu/announce-NuSMV-2.6.0.txt)), with a versy different architecture. A port of NuGAT compatible
+with such version can be found at [NuGAT 0.6.0 repo](https://bitbucket.org/nugaton/nugat-0.6.0)
 
-### COPYRIGHT
+### LOG OF MAJOR CHANGES ###
 
-NuGaT version is licensed under the GNU Lesser General Public
-License (LGPL in short) as published by the Free Software Foundation;
-either version 2.1 of the License, or (at your option) any later
-version. File LGPL-2.1 contains a copy of the License.
+These are the instructions to make NuGAT work under Linux.
 
-For license information on Lily see its documentation.
+* October 2015 - Version 0.6.0 based on 0.5.4 to work with NuSMV 2.6.0
+* June 2015 - Version 0.5.4 based on 0.5.0 to work with NuSMV 2.5.4
+* March 2015 - Version 0.5.0 (for NuSMV 2.5.0)
+* October 2012 - First install for NuSMV 2.5.0
 
+## INSTALLATION INSTRUCTIONS ##
 
-### BUILD INSTRUCTIONS
+1. Make sure you have compiled and installed NuSMV 2.6.0 and then set
+the following environmet variables:
 
-1. NuGaT uses NuSMV 2.5.4 as its backend. Hence, in order to build and use
-NuGaT you should first obtain and build NuSMV 2.5.4. 
+        export NUSMV_BUILD_DIR=/opt/NuSMV-2.6.0/
+        export NUSMV_SOURCE_DIR=~/src/NuSMV/NuSMV-2.6.0/NuSMV/
+        
+    Remember you can install NuSMV in your own directory:
 
-    Please refer to doc/INSTALL-NuSMV-2.5.4.md for some instructions on this.
-
-2. If one compiles right away, you would get this error:
-
-        make[2]: *** No rule to make target '/home/ssardina/src/NuSMV/NuSMV-2.5.4/nusmv/librbcdag.la', needed by 'NuGaT'.  Stop.
-
-    To avoid this, when you installed nusmv, it created an extra library librbcdag  in <nusmv-build-dir>/lib/ 
-    Please copy files that have "rbc" in their name from <nusmv-build-dir>/lib to nusmv source folder.
-  
-3. Compile NuGAT using the **source** dir of NuSMV 2.5.0 (not its installation):
-
-        $ autoconf  # create the configure script
-        $ ./configure --prefix=/opt/NuGAT-0.5.4/ --with-nusmv-dir=/home/ssardina/src/NuSMV/NuSMV-2.5.4/nusmv/
-        $ make
-        $ sudo make install 
-
-   This builds an executable "NuGaT" in the current directory.
+        cmake .. -DCMAKE_INSTALL_PREFIX=~/opt/nusmv-2.6.0/
+        make
+        make install
 
 
+2. Some of the packages needed:
 
-#### LTL GAME
+        sudo apt-get install libc6-dev g++ pkg-config automake pkgconf icu-config
+        sudo apt-get install flex bison 
+        sudo apt-get install libreadline5 libreadline6
+        sudo apt-get install libexpat1 libexpat1-dev libxml2-dev liblzma-dev libicu-dev
+        sudo apt-get install ruby-libxml 
+        sudo apt-get install libncurses5:amd64 libncurses5:i386 libncurses5-dev:amd64 libncurses5-dev:i386
+
+Note: 
+
+- pkgconf is a program which helps to configure compiler and linker flags for development frameworks. It is similar to pkg-config from freedesktop.org. libpkgconf is a library which provides access to most of pkgconf's functionality, to allow other tooling such as compilers and IDEs to discover and use frameworks configured by pkgconf.
+ 
+- icu-config simplifies the task of building and linking against ICU as compared to manually configuring user makefiles or equivalent. Because icu-config is an executable script, it also solves the problem of locating the ICU libraries and headers, by allowing the system PATH to locate it.
 
 
-Checking LTLGAME properties currently requires a slightly modified version of the LTL to B\"uchi translator available in Lily.
+3. BUILD WITH CMAKE (newer):
 
-   1. Download lily-2008-06-19.tar.gz from the following URL:
-      http://www.iaik.tugraz.at/content/research/design_verification/lily/lily-2008-06-19.tar.gz
-      into a convenient directory, e.g., /tmp.
+        mkdir build
+        cd build
+        rm -rf *
+        cmake ..        # this generate the Makefiles
+        cmake --build . # this generate NuGAT executable
 
-   2. Move to the directory where you would like Lily to reside, e.g.,
-      /usr/local/src and unpack Lily:
+    This should finish a ./NuGAT executable:
+        
+        [ssardina@Thinkpad-X1 build]$ ./NuGAT 
+        *** This is NuGaT 0.6.0 (compiled on Sun Nov 26 14:34:01 2017)
+        *** Enabled addons are: game 
+        *** For more information on NuGaT see <http://es.fbk.eu/tools/nugat>
+        *** or email to <nugat-users@list.fbk.eu>.
+        *** Please report bugs to <Please report bugs to <nusmv-users@fbk.eu>>.
+        *** Copyright (c) 2010, Fondazione Bruno Kessler
+        
+        *** This version of NuGAT-0.6.0 is linked to NuSMV 2.6.0.
+        *** For more information on NuSMV see <http://nusmv.fbk.eu>
+        *** or email to <nusmv-users@list.fbk.eu>.
+        *** Copyright (C) 2010-2014, Fondazione Bruno Kessler
+        
+        *** This version of NuGAT-0.6.0 is linked to the CUDD library version 2.4.1
+        *** Copyright (c) 1995-2004, Regents of the University of Colorado
+        
+        *** This version of NuGAT-0.6.0 is linked to the MiniSat SAT solver. 
+        *** See http://minisat.se/MiniSat.html
+        *** Copyright (c) 2003-2006, Niklas Een, Niklas Sorensson
+        *** Copyright (c) 2007-2010, Niklas Sorensson
+        
+        
+4. Install binary NuGAT wherever you would like to be in your system.
 
-        % cd /usr/local/src
-        % tar -xvzf /tmp/lily-2008-06-19.tar.gz
 
-   3. Move into the Lily directory and apply the patch provided in
-      NuGaT-0.5.0/contrib:
 
-        % cd Lily-1.0.2
-        % patch -p1 < NuGaT-0.5.0/contrib/Lily-1.0.2.patch
 
-   4. Make lily.pl known to NuGaT by either creating a symbolic link
-      in a directory in the search path:
+## USAGE
 
-        % ln -s /usr/local/src/Lily-1.0.2/lily.pl /usr/local/bin/lily.pl
+It is assumed that the reader is familiar with concepts of two player games.
 
-      or by setting the NuSMV shell variable
-      game_sf07_gba_wring_binary to the full path of lily.pl (see the
-      NuSMV documentation for details).
-
-### Usage
-
-This section contains some hints on how to use NuGaT.
-
-It is assumed that the reader is familiar with concepts of two player
-games.
-
-Games are implemented as a special mode of NuGaT which is entered when
+Games are implemented as a special mode of NuGAT which is entered when
 a source file containing a game is given either as input file when
-calling NuGaT or when using the "read_model" or the "read_rat_file"
-commands in the NuGaT shell. The mode is left when the "reset" command
-is used in the NuGaT shell. While in game mode the NuGaT shell command
-help provides an overview of the available commands. Calling a NuGaT
+calling NuGAT or when using the "read_model" or the "read_rat_file"
+commands in the NuGAT shell. The mode is left when the "reset" command
+is used in the NuGAT shell. While in game mode the NuGAT shell command
+help provides an overview of the available commands. Calling a NuGAT
 shell command with argument "-h" prints a brief usage message.
 
-For an example on how to write games in NuGaT see
-examples/simple.smv. It can be invoked either in batch mode:
+NuGAT 0.6.0 uses the same language as NuGAT 0.5.0. See examples in examples/
 
-        % ./NuGaT examples/simple.smv
+The port of the original NuGAT example (gets same results):
+    
+    ./NuGAT ../examples/NuGAT/simple.smv
 
-or interactively:
+    An example to solve a planning program:
 
-        % ./NuGaT -int
-        [...banner...]
-        NuGaT > read_model -i examples/simple.smv
-        Entering game mode...
-        Done entering game mode.
-        Note that now game commands apply.
-        NuGaT > go
-        *** WARNING: Game addon does not support properties COI size sorting.  ***
-        *** WARNING: Properties COI size sorting will be disabled.             ***
-        NuGaT > build_boolean_model
-        NuGaT > check_property
-        --   ReachTarget PLAYER_1 o0.v  : the strategy has been found
+    ./NuGAT -dynamic ../examples/NuGAT/test-NuGAT.smv
 
-        --   AvoidTarget PLAYER_2 o0.v  : no strategy exists
+    An example of GR(1) formula:
+    
+    ./NuGaT ../examples/simple-genreac.smv
+    
+    *** WARNING: Game addon does not support properties COI size sorting.  ***
+    *** WARNING: Properties COI size sorting will be disabled.             ***
+    --   GenReactivity PLAYER_2 (i0.v) -> (o0.v, i1)  : the strategy has been found
 
-        --   ReachDeadlock PLAYER_1   : no strategy exists
+... or interactively:
 
-        --   AvoidDeadlock PLAYER_2   : the strategy has been found
-
-        --   BuchiGame PLAYER_2 (i1, o1)  : the strategy has been found
-
-        --   LtlGame PLAYER_1  F ( G i1)  : no strategy exists
-
-        --   GenReactivity PLAYER_2 (i0.v) -> (o0.v, i1)  : the strategy has been found
-
-        NuGaT > quit
-        Exiting game mode...
-        Done exiting game mode.
-        Note that now the commands from before entering game mode apply.
-        %
-
-
-## KNOWN ISSUES
-
-Currently, not all features of the NuSMV language (see the NuSMV 2.5
-documentation) are supported in games. Notable examples of unsupported
-constructs are assignments (ASSIGN), invariants (INVAR), and
-processes.
-
-Also, there is an unresolved issued in the BDD encoder of NuSMV 2.5. If you
-see assertion violations of the following kind
-
-NuGaT: bdd/BddEnc.c:4025: bdd_enc_shuffle_variables_order: Assertion `res == 1' failed.
-Aborted
-
-then please apply the patch provided in NuGaT-0.5.0/contrib to
-$(nusmv_dir)/nusmv/src/enc/bdd/BddEnc.c and recompile first NuSMV and
-then NuGaT:
-
-        % cd $(nusmv_dir)/src/enc/bdd/
-        % patch BddEnc.c < $(nugat_dir)/contrib/BddEnc.c.patch
-        % cd ../../..
-        % make
-        % cd $(nugat_dir)
-        % make
+    [ssardina@Thinkpad-X1 build]$ ./NuGAT -int
+    *** This is NuGaT 0.6.0 (compiled on Sun Nov 26 14:34:01 2017)
+    *** Enabled addons are: game 
+    *** For more information on NuGaT see <http://es.fbk.eu/tools/nugat>
+    *** or email to <nugat-users@list.fbk.eu>.
+    *** Please report bugs to <Please report bugs to <nusmv-users@fbk.eu>>.
+    *** Copyright (c) 2010, Fondazione Bruno Kessler
+    
+    *** This version of NuGAT-0.6.0 is linked to NuSMV 2.6.0.
+    *** For more information on NuSMV see <http://nusmv.fbk.eu>
+    *** or email to <nusmv-users@list.fbk.eu>.
+    *** Copyright (C) 2010-2014, Fondazione Bruno Kessler
+    
+    *** This version of NuGAT-0.6.0 is linked to the CUDD library version 2.4.1
+    *** Copyright (c) 1995-2004, Regents of the University of Colorado
+    
+    *** This version of NuGAT-0.6.0 is linked to the MiniSat SAT solver. 
+    *** See http://minisat.se/MiniSat.html
+    *** Copyright (c) 2003-2006, Niklas Een, Niklas Sorensson
+    *** Copyright (c) 2007-2010, Niklas Sorensson
+    
+    NuSMV > read_model -i ../examples/simple-genreac.smv
+    Entering game mode...
+    Done entering game mode.
+    Note that now game commands apply.
+    NuSMV > go
+    *** WARNING: Game addon does not support properties COI size sorting.  ***
+    *** WARNING: Properties COI size sorting will be disabled.             ***
+    NuSMV > build_boolean_model 
+    NuSMV > check_
+    check_avoid_deadlock  check_buchi_game      check_ltlgame_sf07    check_reach_deadlock  
+    check_avoid_target    check_gen_reactivity  check_property        check_reach_target    
+    NuSMV > check_gen_reactivity 
+    --   GenReactivity PLAYER_2 (i0.v) -> (o0.v, i1)  : the strategy has been found
+    
+    NuSMV > quit
+    Exiting game mode...
+    Done exiting game mode.
+    Note that now the commands from before entering game mode apply.
 
 
-### CONTACT
 
-Migration from NuSMV 2.5.0 to 2.5.4 for NuGAT has been done by:
+##### USEFUL INFO
 
-* Nitin Yadav (<kyadav.nitin@gmail.com>)
-* Sebastian Sardina (ssardina@gmail.com) 
+A file that has useful information on what NuGAT can do is:
+
+src/addons/game/gameCmd.c
 
 
-### EOF
+
+One can run NuGAT directly from the command line or via a script file. In both
+cases, the most improtant option seems to be "--dynamic", which speeds up NuGAT
+by a lot.
+
+1) Command line run:
+
+        $ NuGaT -dynamic <smv file>
+
+2) Script run:
+
+        $ NuGaT -source <.script file>
+
+The script should do some steps before solving the game and can do other extra
+things that cannot be done with the command line (like simulating or printing
+the strategy). My script contains this:
+
+        set on_failure_script_quits 1
+        read_model -i flip-coin-NUGAT-v01.smv
+        flatten_hierarchy
+        set dynamic_reorder 1
+        encode_variables
+        set conj_part_threshold 10000
+        set partition_method Threshold
+        build_model
+        check_gen_reactivity -e
+        check_reach_target  -e
+        quit
+        
+        compute_reachable
+        print_reachable_states
+        check_fsm
+        check_ctlspec
+        pick_state
+        simulate -v -r
+        quit
+ 
+
+The -e option in the check statements states to print the controller that solves
+the problem (if any).
+
+
+##### EXAMPLES
+
+I provide three file examples on how to use NuGat for planning.
+
+- flip-coin-NUGAT-v01.smv: 
+		flip is deterministic; strong planning has solution
+- flip-coin-NUGAT-v02.smv: 
+		flip is non-deterministic; no strong plan; cannot express fairness
+- flip-coin-NUGAT-v03.smv: 
+		same as 02 but with modules for Player 1
+
+File flip-coin-NUGAT-v01.script is a script file for runnig v01 smv file
+
+	$ NuGaT -source flip-coin-NUGAT-v01.script 
+
+
+You will see that because the script has -e in the checking steps:
+
+check_gen_reactivity -e
+check_reach_target  -e
+
+
+the strategy found, if any, will be printed.
+
+## COPYRIGHT ##
+
+NuGaT version is licensed under the GNU Lesser General Public License (LGPL in short) as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version. File LGPL-2.1 contains a copy of the License.
+For license information on Lily see its documentation.
+
+## CONTACT ##
+
+This port of NuGAT compatible with NuSMV 2.6.0 was done by:  
+
+* Sebastian Sardina - ssardina@gmail.com 
+* Lorenzo Dibenedetto - lorenzodibenedetto90@gmail.com
+* Nitin Yadav - nitin.yadav@rmit.edu.au
