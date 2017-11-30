@@ -16,14 +16,6 @@ Nitin Yadav and Sebastian Sardina. This is such version.
 **Obs:** NuSMV later had a major upgrade to [version 2.6.0]([NuSMV 2.6.0 release news](http://nusmv.fbk.eu/announce-NuSMV-2.6.0.txt)), with a versy different architecture. A port of NuGAT compatible
 with such version can be found at [NuGAT 0.6.0 repo](https://bitbucket.org/nugaton/nugat-0.6.0)
 
-### LOG OF MAJOR CHANGES ###
-
-These are the instructions to make NuGAT work under Linux.
-
-* October 2015 - Version 0.6.0 based on 0.5.4 to work with NuSMV 2.6.0
-* June 2015 - Version 0.5.4 based on 0.5.0 to work with NuSMV 2.5.4
-* March 2015 - Version 0.5.0 (for NuSMV 2.5.0)
-* October 2012 - First install for NuSMV 2.5.0
 
 ## INSTALLATION INSTRUCTIONS ##
 
