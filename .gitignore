@@ -172,3 +172,4 @@ config.h
 libtool
 configure
 .idea
+.vscode/settings.json
